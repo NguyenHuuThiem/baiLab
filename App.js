@@ -1,35 +1,85 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import ProductList from './src/screens/ProductList';
 
+import React,{Component, useState} from 'react';
+import { StyleSheet, Text, View,style, Button, TextInput } from 'react-native';
+import ProductList from './src/screens/ProductList';
+import ProductText, { ProductImage, ProductImage2 } from './src/screens/ProductText';
 export default function App() {
+  const [showStatus, setShowStatus] = useState(true);
+  const [name,setname] = useState('');
+  const [mota,setmota] = useState('');
   return (
     <View style={styles.container}>
-      <Text>Họ tên: Nguyễn Hữu Thiêm </Text>
-      <Text>MSV: PH19987</Text>
+      <View  style={styles.top}>
+      <Text>Họ tên : Nguyễn Hữu Thiêm </Text>
+      <Text>MSV : PH19987</Text>
+      </View>
+      <View style={styles.button}>
+        <Button 
+        title='Thêm mới'
+        onPress={() => setShowStatus(!showStatus)}
+        />
+        {
+        showStatus
+        ?
+        <>
+        <TextInput
+        onChangeText={(txt) => setname(txt)}
+        value = {name}
+        placeholder = 'Tên'
+        />
+        <TextInput
+        onChangeText={(txt) => setmota(txt)}
+        value = {mota}
+        placeholder = 'Mô tả'
+        />
+        <TextInput
+        onChangeText={(txt) => setmota(txt)}
+        value = {mota}
+        placeholder = 'Link'
+        />
+        <Button
+        title='Lưu'
+        onPress={() => setShowStatus(false)}
+        />
+        </>
+        : null
+        }
 
-      <Button
-      title = {'Thêm mới'}
-      />
+      </View>
+       <View>
+       <View style = {styles.textbottommota}>
+       <ProductList />
+       </View>
+       </View>
       
-      <ProductList style = {styles.text1}/>
-
-      <StatusBar style="auto" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex : 1,
+    backgroundColor : '#FFFFFF',
+  },
+  top : {
+    marginTop : 40
+  },
+  button: {
+    marginTop : 80,
+    backgroundColor : '#E0FFFF',
+    marginLeft : 100,
+    marginRight : 100,
+    borderWidth : 2,
+    borderColor : 'blue'
     
   },
 
-  text1: {
-    
-  },
-});
+  textbottommota : {
+    flexDirection : 'column',
+    paddingTop : 20,
+    paddingLeft : 100,
+
+
+  }
+
+  });
